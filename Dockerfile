@@ -49,12 +49,12 @@ WORKDIR /var/www/html
 COPY . .
 
 # Crea el archivo .env con la configuración específica
-RUN echo 'APP_NAME="Cumplimiento EM & EL"' > .env && \
+RUN echo 'APP_NAME="Bancolombiia"' > .env && \
     echo 'APP_ENV=local' >> .env && \
     echo 'APP_KEY=base64:fncqQOhCOM7JALFneYpduxdQjUREESC8zMrbueNemsU=' >> .env && \
     echo 'APP_DEBUG=true' >> .env && \
     echo 'APP_TIMEZONE=UTC' >> .env && \
-    echo 'APP_URL=http://localhost:5000' >> .env && \
+    echo 'APP_URL=http://localhost:5008' >> .env && \
     echo 'APP_LOCALE=es' >> .env && \
     echo 'APP_FALLBACK_LOCALE=es' >> .env && \
     echo 'APP_FAKER_LOCALE=es_COL' >> .env && \
@@ -67,8 +67,8 @@ RUN echo 'APP_NAME="Cumplimiento EM & EL"' > .env && \
     echo 'LOG_LEVEL=debug' >> .env && \
     echo 'DB_CONNECTION=mysql' >> .env && \
     echo 'DB_HOST=db' >> .env && \
-    echo 'DB_PORT=3306' >> .env && \
-    echo 'DB_DATABASE=cumplimiento_em' >> .env && \
+    echo 'DB_PORT=3307' >> .env && \
+    echo 'DB_DATABASE=bancolombia' >> .env && \
     echo 'DB_USERNAME=root' >> .env && \
     echo 'DB_PASSWORD=Espumas2025*.' >> .env && \
     echo 'SESSION_DRIVER=database' >> .env && \
@@ -85,7 +85,7 @@ RUN echo 'APP_NAME="Cumplimiento EM & EL"' > .env && \
     echo 'REDIS_CLIENT=phpredis' >> .env && \
     echo 'REDIS_HOST=redis' >> .env && \
     echo 'REDIS_PASSWORD=null' >> .env && \
-    echo 'REDIS_PORT=6379' >> .env && \
+    echo 'REDIS_PORT=6380' >> .env && \
     echo 'MAIL_MAILER=log' >> .env && \
     echo 'MAIL_SCHEME=null' >> .env && \
     echo 'MAIL_HOST=mailhog' >> .env && \
@@ -117,4 +117,4 @@ USER root
 # Configura permisos adicionales
 RUN chmod -R 755 storage bootstrap/cache
 
-EXPOSE 5000
+EXPOSE 5008
