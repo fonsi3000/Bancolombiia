@@ -13,7 +13,7 @@ services:
       - APP_DEBUG=true
       - APP_TIMEZONE=America/Bogota
       - DB_HOST=db
-      - DB_PORT=3307
+      - DB_PORT=3306  # Puerto interno de MySQL (dentro de la red Docker)
       - DB_DATABASE=bancolombia
       - DB_USERNAME=root
       - DB_PASSWORD=Espumas2025*.
@@ -32,7 +32,7 @@ services:
     image: mysql:8.0
     container_name: bancolombiia_db
     ports:
-      - "3315:3306"  # Puerto interno 3315, expuesto en 3306 en el host
+      - "3315:3306"  # Puerto interno 3306, expuesto en 3315 en el host
     environment:
       - MYSQL_DATABASE=bancolombia
       - MYSQL_ROOT_PASSWORD=Espumas2025*.
