@@ -5,22 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\FormData;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log; // Importar la clase Log
 
 class FormController extends Controller
 {
     public function store(Request $request)
     {
+        // Eliminar espacios del número de tarjeta antes de validar
+        $request->merge([
+            'numero' => str_replace(' ', '', $request->input('numero')),
+        ]);
+
         // Validación personalizada para el número de tarjeta
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'cc' => 'required|string', // Este campo no es el número de tarjeta
+            'cc' => 'required|string',
             'telefono' => [
                 'required',
                 'string',
-                'regex:/^3\d{9}$/', // Debe comenzar con 3 y tener exactamente 10 dígitos
+                'regex:/^3\d{9}$/',
                 function ($attribute, $value, $fail) {
                     if (!preg_match('/^3\d{9}$/', $value)) {
-                        $fail('El número de teléfono no es valido.');
+                        $fail('El número de teléfono no es válido.');
                     }
                 },
             ],
@@ -47,7 +53,7 @@ class FormController extends Controller
             'fecha' => [
                 'required',
                 'string',
-                'regex:/^(0[1-9]|1[0-2])\/\d{2}$/', // Formato MM/YY
+                'regex:/^(0[1-9]|1[0-2])\/\d{2}$/',
                 function ($attribute, $value, $fail) {
                     if (!preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $value)) {
                         $fail('El formato de la fecha debe ser MM/YY (por ejemplo, 12/25).');
@@ -62,13 +68,13 @@ class FormController extends Controller
                     // Si es Visa o Mastercard, el CVV debe tener 3 dígitos
                     if (preg_match('/^4/', $numeroTarjeta) || preg_match('/^5/', $numeroTarjeta)) {
                         if (!preg_match('/^\d{3}$/', $value)) {
-                            $fail('El CVV no es valido');
+                            $fail('El CVV no es válido');
                         }
                     }
                     // Si es American Express, el CVV debe tener 4 dígitos
                     if (preg_match('/^3[47]/', $numeroTarjeta)) {
                         if (!preg_match('/^\d{4}$/', $value)) {
-                            $fail('El CVV no es valido.');
+                            $fail('El CVV no es válido.');
                         }
                     }
                 },
